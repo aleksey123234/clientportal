@@ -1,0 +1,424 @@
+/* ═══════════════════════════════════════════════════════════
+   SERVICES PAGE — accordion, info cards, email list
+   File: public/css/services.css
+
+   Sections:
+     - Accordion headers & icons
+     - Info cards (Details, Status, Courts, Police Certs)
+     - Data tables (Police Certificates)
+     - Email History list & modal trigger
+     - Dark mode overrides
+     - Responsive breakpoints
+
+   Loaded by: src/views/services/services-page.php
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Accordion ─────────────────────────────────────────── */
+.svc-accordion .accordion-item {
+    border-radius: 8px !important;
+    margin-bottom: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.svc-accordion .accordion-button {
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px 18px;
+    background: #fff;
+    box-shadow: none !important;
+}
+
+.svc-accordion .accordion-button:not(.collapsed) {
+    background: #fafbff;
+}
+
+.svc-header-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.svc-header-label {
+    font-weight: 700;
+}
+
+/* ── Info Cards ────────────────────────────────────────── */
+.svc-info-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.svc-info-card-header {
+    background: #f5f6fa;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #444;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.svc-info-card .row {
+    padding: 12px 16px;
+}
+
+/* ── Status ────────────────────────────────────────────── */
+.svc-status-inline {
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.svc-status-text {
+    padding: 10px 16px;
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* ── Details compact ───────────────────────────────────── */
+.svc-details-compact .svc-info-card-header {
+    padding: 8px 16px;
+}
+
+.svc-detail-chip {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.svc-detail-chip-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #888;
+    font-weight: 600;
+}
+
+.svc-detail-chip-value {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* ── Meta grid ─────────────────────────────────────────── */
+.svc-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 12px 16px;
+    flex: 1;
+}
+
+.svc-meta-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.svc-meta-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #888;
+    font-weight: 600;
+}
+
+.svc-meta-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* ── Courts & Police ───────────────────────────────────── */
+.svc-sub-header {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.svc-institution-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.svc-institution-list li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 0.88rem;
+}
+
+.svc-institution-list li:last-child {
+    border-bottom: none;
+}
+
+/* ── Data Tables (Police Certificates) ─────────────────── */
+.svc-data-table {
+    font-size: 0.85rem;
+}
+
+.svc-data-table thead th {
+    background: #f8f9fa;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #666;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.svc-data-table tbody td {
+    vertical-align: middle;
+}
+
+/* ── Email History ─────────────────────────────────────── */
+.svc-email-card {
+    position: sticky;
+    top: 1rem;
+}
+
+.svc-email-list {
+    padding: 4px 0;
+    overflow-y: auto;
+}
+
+.svc-email-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 6px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    font-size: 0.84rem;
+    flex-wrap: wrap;
+}
+
+a.svc-email-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+a.svc-email-link:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.svc-email-chevron {
+    color: #bbb;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+
+.svc-email-item:last-child {
+    border-bottom: none;
+}
+
+.svc-email-num {
+    font-weight: 700;
+    color: #888;
+    min-width: 22px;
+    flex-shrink: 0;
+}
+
+.svc-email-date {
+    color: #555;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.svc-email-sep {
+    color: #ccc;
+    flex-shrink: 0;
+}
+
+.svc-email-sender {
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.svc-email-tpl {
+    font-weight: 700;
+    color: #6c757d;
+    flex-shrink: 0;
+}
+
+.svc-email-subject {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+/* ── Dark Mode (portal uses body.dark-theme, not data-bs-theme) ── */
+body.dark-theme .svc-accordion {
+    --bs-accordion-bg: #15243a;
+    --bs-accordion-color: #c8d8e8;
+    --bs-accordion-border-color: #1e3048;
+    --bs-accordion-btn-bg: #1a2d42;
+    --bs-accordion-btn-color: #e2e8f0;
+    --bs-accordion-btn-focus-border-color: #2d4260;
+    --bs-accordion-btn-focus-box-shadow: none;
+    --bs-accordion-active-bg: #1e3350;
+    --bs-accordion-active-color: #e2e8f0;
+    --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23e2e8f0'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23e2e8f0'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+body.dark-theme .svc-accordion .accordion-item,
+body.dark-theme .svc-accordion .svc-item {
+    background-color: #15243a !important;
+    background: #15243a !important;
+    color: #c8d8e8;
+    border-color: #1e3048 !important;
+}
+
+body.dark-theme .svc-accordion .accordion-header {
+    background-color: transparent;
+}
+
+body.dark-theme .svc-accordion .accordion-button,
+body.dark-theme .svc-accordion .accordion-button:not(.collapsed),
+body.dark-theme .svc-accordion .accordion-button:focus,
+body.dark-theme .svc-accordion .accordion-button:hover {
+    background-color: #1a2d42 !important;
+    background: #1a2d42 !important;
+    color: #e2e8f0 !important;
+    box-shadow: none !important;
+}
+
+body.dark-theme .svc-accordion .accordion-button:not(.collapsed) {
+    background-color: #1e3350 !important;
+    background: #1e3350 !important;
+}
+
+body.dark-theme .svc-accordion .accordion-collapse,
+body.dark-theme .svc-accordion .accordion-body {
+    background-color: #15243a !important;
+    background: #15243a !important;
+    color: #c8d8e8 !important;
+}
+
+body.dark-theme .svc-info-card {
+    background-color: #1a2d42 !important;
+    background: #1a2d42 !important;
+    border-color: #1e3048 !important;
+    color: #c8d8e8;
+}
+
+body.dark-theme .svc-info-card-header {
+    background-color: #15243a !important;
+    background: #15243a !important;
+    color: #c8d8e8 !important;
+    border-color: #1e3048 !important;
+}
+
+body.dark-theme .svc-status-text {
+    color: #b0c4d8 !important;
+}
+
+body.dark-theme .svc-status-inline {
+    color: #e2e8f0 !important;
+}
+
+body.dark-theme .svc-detail-chip-value,
+body.dark-theme .svc-meta-value {
+    color: #e2e8f0 !important;
+}
+
+body.dark-theme .svc-detail-chip-label,
+body.dark-theme .svc-meta-label,
+body.dark-theme .svc-sub-header {
+    color: #7a95b0 !important;
+}
+
+body.dark-theme a.svc-email-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-theme .svc-institution-list li {
+    border-color: #1e3048;
+    color: #c8d8e8;
+}
+
+body.dark-theme .svc-institution-list .text-muted {
+    color: #7a95b0 !important;
+}
+
+body.dark-theme .svc-data-table {
+    --bs-table-bg: #1a2d42;
+    --bs-table-color: #c8d8e8;
+    --bs-table-border-color: #1e3048;
+    color: #c8d8e8;
+    background-color: #1a2d42;
+}
+
+body.dark-theme .svc-data-table thead th {
+    background-color: #15243a !important;
+    color: #a8bdd4 !important;
+    border-color: #1e3048 !important;
+}
+
+body.dark-theme .svc-data-table td,
+body.dark-theme .svc-data-table th {
+    background-color: #1a2d42 !important;
+    color: #c8d8e8 !important;
+    border-color: #1e3048 !important;
+}
+
+body.dark-theme .svc-email-item {
+    border-color: #1e3048;
+    color: #c8d8e8;
+}
+
+body.dark-theme .svc-email-date {
+    color: #7a95b0;
+}
+
+body.dark-theme .svc-email-sender {
+    color: #e2e8f0;
+}
+
+body.dark-theme .svc-email-subject {
+    color: #c8d8e8;
+}
+
+body.dark-theme .svc-email-num,
+body.dark-theme .svc-email-tpl {
+    color: #7a95b0;
+}
+
+body.dark-theme .svc-email-sep,
+body.dark-theme .svc-email-chevron {
+    color: #4a6080;
+}
+
+body.dark-theme .svc-email-card .card-header {
+    background: #15243a !important;
+    color: #e2e8f0;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .svc-meta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .svc-nexus-label {
+        width: 140px;
+    }
+
+    .svc-email-item {
+        font-size: 0.78rem;
+    }
+}

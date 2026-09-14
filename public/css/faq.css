@@ -1,0 +1,103 @@
+/* FAQ page — search, filters, accordion + dark theme
+   Loaded by: src/views/faq/faq-page.php */
+
+.faq-section-header {
+    color: inherit;
+}
+
+.faq-item .accordion-button {
+    background: #fff;
+    color: #1d2b45;
+    box-shadow: none !important;
+}
+
+.faq-item .accordion-button:not(.collapsed) {
+    background: #f8fafc;
+    color: #1d2b45;
+}
+
+.faq-item .accordion-body {
+    background: #fff;
+    color: #334155;
+}
+
+/* ── Dark theme (body.dark-theme — portal appearance setting) ── */
+body.dark-theme .faq-section > h5 {
+    color: #e2e8f0;
+}
+
+body.dark-theme .faq-section-header,
+body.dark-theme #faqFilterStatus,
+body.dark-theme #faqNoResults {
+    color: #c8d8e8;
+}
+
+body.dark-theme .faq-section-header .text-muted,
+body.dark-theme .faq-section-count {
+    background-color: #1a2d42 !important;
+    color: #7a95b0 !important;
+    border-color: #2d4260 !important;
+}
+
+body.dark-theme #faqSearch,
+body.dark-theme .input-group-text.bg-white {
+    background-color: #1a2d42 !important;
+    color: #e2e8f0;
+    border-color: #2d4260 !important;
+}
+
+body.dark-theme #faqSearch::placeholder {
+    color: #7a95b0;
+}
+
+body.dark-theme #faqSearchClear {
+    background-color: #1a2d42;
+    color: #c8d8e8;
+    border-color: #2d4260;
+}
+
+body.dark-theme .faq-item {
+    background: #15243a;
+}
+
+body.dark-theme .faq-item.accordion-item,
+body.dark-theme .faq-item.shadow-sm {
+    background: #15243a;
+    box-shadow: none !important;
+    border: 1px solid #1e3048 !important;
+}
+
+body.dark-theme .faq-item .accordion-button {
+    background: #15243a;
+    color: #e2e8f0;
+}
+
+body.dark-theme .faq-item .accordion-button:not(.collapsed) {
+    background: #1a2d42;
+    color: #e2e8f0;
+}
+
+body.dark-theme .faq-item .accordion-button::after {
+    filter: invert(1) brightness(1.2);
+}
+
+body.dark-theme .faq-item .accordion-body {
+    background: #15243a;
+    color: #c8d8e8;
+}
+
+body.dark-theme .faq-item .accordion-body a {
+    color: #7db8ff;
+}
+
+body.dark-theme .faq-filter-pill.btn-outline-secondary,
+body.dark-theme .faq-filter-pill.btn-outline-primary,
+body.dark-theme .faq-filter-pill[class*='btn-outline-'] {
+    border-color: #2d4260;
+    color: #c8d8e8;
+}
+
+body.dark-theme .faq-filter-pill[class*='btn-outline-']:hover {
+    background-color: #1a2d42;
+    color: #e2e8f0;
+}

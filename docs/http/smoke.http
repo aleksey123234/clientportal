@@ -1,0 +1,20 @@
+### Client Portal HTTP smoke (VS Code REST Client / JetBrains HTTP Client)
+### Pay CSRF/amount: see PHPUnit + docs/test-plan-payments.md (needs session).
+
+@base = http://localhost
+
+### Health (ops probe — add X-Health-Token when HEALTH_TOKEN is set)
+GET {{base}}/health
+# X-Health-Token: your-token-here
+
+### Login page
+GET {{base}}/login
+
+### Login without CSRF (expect error / not authenticated dashboard)
+POST {{base}}/login
+Content-Type: application/x-www-form-urlencoded
+
+client_id=1&password=wrong
+
+### Invalid registration token shape
+GET {{base}}/register/not-a-uuid

@@ -1,0 +1,386 @@
+/**
+ * CIF (Client Information Form) page styles.
+ * File: public/css/cif.css
+ *
+ * Covers:
+ *   - Progress bar styling
+ *   - Section navigation pills
+ *   - Form cards, questions, tables
+ *   - Dynamic table rows (add/remove)
+ *   - Dark mode support
+ *   - Responsive layout
+ *
+ * @see src/views/cif/cif-page.php
+ * @see public/js/cif.js
+ */
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  Progress Bar                                                   */
+/* ═══════════════════════════════════════════════════════════════ */
+.cif-progress-wrap {
+    padding: 1.25rem 1.5rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.cif-progress-wrap .progress {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.cif-progress-wrap .progress-bar {
+    transition: width 0.4s ease-in-out;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  Section Navigation Pills                                       */
+/* ═══════════════════════════════════════════════════════════════ */
+.cif-section-nav {
+    gap: 0.25rem;
+    padding-bottom: 2px;
+}
+
+.cif-section-nav .nav-link {
+    white-space: nowrap;
+    border-radius: 2rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    color: #555;
+    background: #f0f0f0;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.cif-section-nav .nav-link:hover {
+    background: #e0e0e0;
+}
+
+.cif-section-nav .nav-link.active {
+    background: #0d6efd;
+    color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  Form Cards & Questions                                         */
+/* ═══════════════════════════════════════════════════════════════ */
+.cif-section .card-header {
+    font-size: 0.95rem;
+}
+
+.cif-question {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cif-question:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.cif-question .form-label {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.cif-form-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.cif-form-badge {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  Dynamic Tables (addresses, employment, offences)               */
+/* ═══════════════════════════════════════════════════════════════ */
+.cif-table {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.cif-table th {
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.cif-table td {
+    vertical-align: middle;
+    padding: 0.25rem 0.35rem;
+}
+
+.cif-table .form-control-sm {
+    font-size: 0.82rem;
+    padding: 0.2rem 0.4rem;
+}
+
+.cif-row-add {
+    font-size: 0.82rem;
+}
+
+.cif-row-remove {
+    padding: 0.15rem 0.35rem;
+    font-size: 0.75rem;
+    line-height: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  Flatpickr — month-only calendar (plugin or day-grid fallback) */
+/* ═══════════════════════════════════════════════════════════════ */
+.cif-month-picker-fallback .flatpickr-innerContainer {
+    display: none; /* fallback when monthSelectPlugin is unavailable */
+}
+.flatpickr-calendar.cif-month-picker-cal {
+    width: auto !important;
+    min-width: 220px;
+}
+/* Header month/year buttons — shared style */
+.flatpickr-calendar .fp-header-btn,
+.flatpickr-calendar .fp-year-btn,
+.flatpickr-calendar .fp-month-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font: inherit;
+    font-weight: 700;
+    color: inherit;
+    cursor: pointer;
+    min-width: 3.25rem;
+    padding: 0.1rem 0.4rem;
+    line-height: 1.4;
+    margin: 0 0.1rem;
+}
+.flatpickr-calendar .fp-month-btn {
+    min-width: 3.5rem;
+}
+.flatpickr-calendar .fp-header-btn:hover,
+.flatpickr-calendar .fp-year-btn:hover,
+.flatpickr-calendar .fp-month-btn:hover {
+    border-color: #0d6efd;
+    background: rgba(13, 110, 253, 0.06);
+}
+.flatpickr-calendar .flatpickr-current-month {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    width: auto;
+}
+/* Hide native month <select> when custom month button is present */
+.flatpickr-calendar .flatpickr-monthDropdown-months[aria-hidden="true"] {
+    display: none !important;
+}
+/* Floating year list — opens upward, ~8 rows */
+.fp-year-panel {
+    min-width: 5.5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.35rem;
+    box-shadow: 0 -0.35rem 1.25rem rgba(0, 0, 0, 0.22);
+    padding: 0.2rem 0;
+}
+.fp-year-panel-up {
+    /* visual cue: shadow above when opening upward */
+    box-shadow: 0 -0.4rem 1.1rem rgba(0, 0, 0, 0.2);
+}
+.fp-year-panel-item {
+    display: block;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    text-align: center;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.75rem;
+    height: 1.75rem;
+    padding: 0 0.75rem;
+    cursor: pointer;
+    color: #212529;
+}
+.fp-year-panel-item:hover {
+    background: #e7f1ff;
+    color: #0d6efd;
+}
+.fp-year-panel-item.is-selected {
+    background: #0d6efd;
+    color: #fff;
+}
+body.dark-theme .fp-year-panel {
+    background: #2b3035;
+    border-color: #495057;
+}
+body.dark-theme .fp-year-panel-item {
+    color: #e9ecef;
+}
+body.dark-theme .fp-year-panel-item:hover {
+    background: rgba(13, 110, 253, 0.25);
+    color: #fff;
+}
+body.dark-theme .fp-year-panel-item.is-selected {
+    background: #0d6efd;
+    color: #fff;
+}
+/* Editable month fields — still open picker on click */
+.cif-table-input.cif-month-picker:not([readonly]),
+.cif-input.cif-month-picker:not([readonly]),
+.cif-input.cif-optional-day-month:not([readonly]) {
+    cursor: text;
+    background-color: #fff !important;
+}
+/* Locked "Present" cells only — not date/month pickers */
+.cif-table-input[readonly]:not(.cif-month-picker):not(.cif-date-picker) {
+    background-color: #f0f2f5 !important;
+    font-weight: 600;
+    color: #2563eb;
+    cursor: default;
+}
+.cif-table-input.cif-month-picker[readonly],
+.cif-table-input.cif-date-picker[readonly],
+.cif-input.cif-month-picker[readonly],
+.cif-input.cif-date-picker[readonly] {
+    background-color: #fff !important;
+    font-weight: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+/* Optional day: month + day select (day label must fit) */
+.cif-optional-day-wrap {
+    width: 100%;
+}
+.cif-optional-day-wrap .cif-optional-day-month {
+    flex: 1 1 10rem;
+    min-width: 9rem;
+    max-width: 14rem;
+}
+.cif-optional-day-wrap .cif-optional-day-select {
+    flex: 1 1 11rem;
+    min-width: 11rem;
+    width: auto;
+    max-width: 100%;
+}
+
+/* Timeline gap highlight on from/to month cells */
+.cif-table-input.cif-timeline-gap,
+.cif-table-input.is-invalid.cif-timeline-gap {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.15rem rgba(220, 53, 69, 0.25);
+    background-color: #fff5f5 !important;
+}
+body.dark-theme .cif-table-input.cif-timeline-gap,
+body.dark-theme .cif-table-input.is-invalid.cif-timeline-gap {
+    background-color: rgba(220, 53, 69, 0.15) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  Toast                                                          */
+/* ═══════════════════════════════════════════════════════════════ */
+#cifToast .toast {
+    min-width: 280px;
+    max-width: 420px;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  Responsive                                                     */
+/* ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .cif-progress-wrap {
+        padding: 1rem;
+    }
+
+    .cif-section-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .cif-section-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .cif-table {
+        font-size: 0.78rem;
+    }
+    .cif-table th {
+        font-size: 0.72rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  Dark Mode (body.dark-theme — set by Settings appearance tab)   */
+/* ═══════════════════════════════════════════════════════════════ */
+body.dark-theme .cif-progress-wrap {
+    background: #15243a;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .cif-section-nav .nav-link {
+    background: #1a2d42;
+    color: #94a3b8;
+}
+
+body.dark-theme .cif-section-nav .nav-link:hover {
+    background: #1e3350;
+}
+
+body.dark-theme .cif-section-nav .nav-link.active {
+    background: #4f8ef7;
+    color: #fff;
+}
+
+body.dark-theme .cif-question {
+    border-bottom-color: #1e3048;
+}
+
+body.dark-theme .cif-table {
+    color: #c8d8e8;
+}
+
+body.dark-theme .cif-table th {
+    background: #1a2d42;
+    color: #c8d8e8;
+}
+
+body.dark-theme .cif-table td {
+    border-color: #2d4260;
+}
+
+body.dark-theme .cif-table .form-control-sm {
+    background: #1a2d42;
+    color: #e2e8f0;
+    border-color: #2d4260;
+}
+
+body.dark-theme .cif-form-badge {
+    opacity: 0.9;
+}
+
+body.dark-theme .cif-table-input[readonly]:not(.cif-month-picker):not(.cif-date-picker) {
+    background-color: #152030 !important;
+    color: #7db8ff;
+}
+
+body.dark-theme .cif-table-input.cif-month-picker[readonly],
+body.dark-theme .cif-table-input.cif-date-picker[readonly],
+body.dark-theme .cif-input.cif-month-picker[readonly],
+body.dark-theme .cif-input.cif-date-picker[readonly] {
+    background-color: #1a2332 !important;
+    color: inherit;
+    cursor: pointer;
+}
+
+body.dark-theme .flatpickr-calendar.cif-month-picker-cal {
+    background: #15243a;
+    border-color: #2d4260;
+}

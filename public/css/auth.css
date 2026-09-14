@@ -1,0 +1,220 @@
+﻿/* ═══════════════════════════════════════════════════════════════
+   AUTH PAGES — login, register, password reset
+   File: public/css/auth.css
+
+   Covers:
+     - Full-screen blurred background (video/image)
+     - Centered auth card with slide animation
+     - Login ↔ Forgot password panel transition
+     - Register wizard step indicators
+     - Dark overlays & responsive breakpoints
+
+   Loaded by: src/views/layouts/auth.php
+   ═══════════════════════════════════════════════════════════════ */
+
+/* -- Auth page layout ----------------------------------------- */
+
+/* Background image with blur overlay */
+.auth-bg {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.auth-bg::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url('/images/LogInBkgVid.gif') center center / cover no-repeat;
+    filter: blur(6px);
+    transform: scale(1.05);
+    z-index: 0;
+}
+
+.auth-bg::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 20, 50, 0.55);
+    z-index: 1;
+}
+
+.auth-bg > * {
+    position: relative;
+    z-index: 2;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    padding: 1rem;
+    margin: auto;
+}
+
+/* Registration pages: let the card expand to fit the reg-wrap */
+.auth-card--fluid {
+    max-width: none;
+    width: auto;
+    padding: 1rem 1.5rem;
+}
+
+/* ── Login / Forgot Password slide animation ─────────────────── */
+.auth-slider-wrap {
+    width: 100%;
+    /* No overflow:hidden — the exiting panel is hidden via opacity+pointer-events */
+}
+
+/* Both panels occupy normal flow so the wrapper height is stable.
+   The hidden panel is invisible but NOT display:none while it's the
+   "resting" state so the card height doesn't jump on switch.        */
+.auth-panel {
+    width: 100%;
+}
+
+/* Completely hidden (resting off-state) */
+.auth-panel--hidden {
+    display: none;
+}
+
+/* Exit: panel fades/slides out, then JS adds --hidden */
+@keyframes slideOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+}
+
+/* Enter: panel fades/slides in after the exit finishes */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.auth-panel--exit {
+    animation: slideOutLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+    pointer-events: none;
+}
+
+.auth-panel--enter {
+    animation: slideInRight 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ── Registration multi-step animation ───────────────────────── */
+
+/* Base wrapper */
+.reg-wrap {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    position: relative;
+    transition: max-width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Welcome step — wide, spacious layout (landing-page feel) */
+.reg-wrap--welcome {
+    max-width: 860px;
+}
+
+/* Terms step — comfortable width for reading long text */
+.reg-wrap--terms {
+    max-width: 780px;
+}
+
+/* Declined step — narrow, just one message line needed */
+.reg-wrap--declined {
+    max-width: 520px;
+}
+
+.reg-step {
+    display: none;
+    width: 100%;
+}
+
+.reg-step.active {
+    display: block;
+}
+
+/* Slide up from below */
+@keyframes slideUpIn {
+    from {
+        opacity: 0;
+        transform: translateY(48px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeSlideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-32px);
+    }
+}
+
+.reg-step--enter {
+    animation: slideUpIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.reg-step--exit {
+    animation: fadeSlideOut 0.375s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ── Welcome text: cascading slide-up animation (large → small) ── */
+
+/* h4 heading — appears first, 0.15 s delay */
+.reg-welcome-text h4 {
+    animation: slideUpIn 0.625s 0.15s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* strong (company name) — appears second, 0.45 s delay */
+.reg-welcome-text p strong {
+    display: block;
+    animation: slideUpIn 0.625s 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Remaining paragraph text — appears last, 0.75 s delay */
+.reg-welcome-text p {
+    animation: slideUpIn 0.625s 0.75s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ── Password strength bar ───────────────────────────────────── */
+.strength-track {
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.strength-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 3px;
+    background: #e9ecef;
+    transition:
+        width 0.3s ease,
+        background 0.3s ease;
+}
+
+/* ── Terms scrollable box ────────────────────────────────────── */
+.terms-box {
+    background: #f8f9fa;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}

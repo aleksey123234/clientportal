@@ -1,0 +1,13 @@
+# See repository root .gitignore for shared ignores.
+# Local overrides for client-portal only:
+
+/vendor/
+.env
+/public/uploads/tmp/
+/database/dumps/
+*.sql.dump
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,1150 @@
+/* ═══════════════════════════════════════════════════════════════
+   CLIENT PORTAL — main.css
+   Dark-navy sidebar, Apple-inspired, SPA page transitions
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Variables ─────────────────────────────────────────────────── */
+:root {
+    --sidebar-width: 272px;
+    --sidebar-width-sm: 84px;
+    --sidebar-bg: #0b1a35;
+    --sidebar-bg-hover: rgba(255, 255, 255, 0.07);
+    --sidebar-active-bg: rgba(255, 255, 255, 0.12);
+    --sidebar-active-bar: #4f8ef7;
+    --sidebar-text: rgba(255, 255, 255, 0.75);
+    --sidebar-text-bright: #ffffff;
+    --sidebar-section: rgba(255, 255, 255, 0.35);
+    --sidebar-border: rgba(255, 255, 255, 0.08);
+    --topbar-height: 60px;
+    --content-bg: #f4f6fb;
+    --transition-sidebar: 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-page: 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    --card-radius: 14px;
+}
+
+/* ── Reset / Base ───────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+body {
+    background: var(--content-bg);
+    overflow: hidden;
+}
+
+/* ── Layout shell ───────────────────────────────────────────────── */
+.portal-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR
+   ═══════════════════════════════════════════════════════════════ */
+.portal-sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    transition:
+        width var(--transition-sidebar),
+        min-width var(--transition-sidebar);
+    overflow: hidden;
+    position: relative;
+    z-index: 100;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+}
+
+.portal-sidebar.is-collapsed {
+    width: var(--sidebar-width-sm);
+    min-width: var(--sidebar-width-sm);
+}
+
+/* ── Collapsed: hide section labels only; nav stays visible (icon-only mode) ── */
+.portal-sidebar.is-collapsed .sidebar-section-label {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* ── Collapsed: icon-only nav links (rail column stays) ── */
+.portal-sidebar.is-collapsed .sidebar-nav-timeline {
+    padding: 2px 4px;
+}
+.portal-sidebar.is-collapsed .sidebar-nav {
+    padding: 2px 0;
+}
+.portal-sidebar.is-collapsed .sidebar-link {
+    justify-content: center;
+    padding: 11px 4px;
+    border-radius: 0;
+}
+.portal-sidebar.is-collapsed .sidebar-label {
+    display: none;
+}
+.portal-sidebar.is-collapsed .sidebar-link.is-active::before {
+    top: 15%;
+    bottom: 15%;
+}
+
+/* ── Collapsed: user card — avatar only ── */
+.portal-sidebar.is-collapsed .sidebar-user-card {
+    justify-content: center;
+    padding: 10px 0;
+    margin: 8px 0;
+}
+.portal-sidebar.is-collapsed .sidebar-user-info {
+    display: none;
+}
+
+/* ── Logo block expanded ── */
+.sidebar-logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 12px;
+    border-bottom: 1px solid var(--sidebar-border);
+    gap: 10px;
+}
+.portal-sidebar.is-collapsed .sidebar-logo-wrap {
+    display: none;
+}
+
+.sidebar-logo-box {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 72px;
+}
+.sidebar-logo-img {
+    max-height: 52px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.sidebar-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--sidebar-bg-hover);
+    border: 1px solid var(--sidebar-border);
+    border-radius: 8px;
+    color: var(--sidebar-text);
+    font-size: 0.8rem;
+    padding: 5px 14px;
+    cursor: pointer;
+    transition:
+        background 0.2s,
+        color 0.2s;
+    width: 100%;
+    justify-content: center;
+}
+.sidebar-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--sidebar-text-bright);
+}
+.sidebar-menu-label {
+    letter-spacing: 0.04em;
+    font-weight: 500;
+}
+
+/* ── Logo block collapsed ── */
+.sidebar-logo-wrap-collapsed {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 8px 8px;
+    border-bottom: 1px solid var(--sidebar-border);
+    gap: 8px;
+}
+.portal-sidebar.is-collapsed .sidebar-logo-wrap-collapsed {
+    display: flex;
+}
+
+.sidebar-logo-box-sm {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 6px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar-logo-img-sm {
+    max-height: 36px;
+    max-width: 36px;
+    object-fit: contain;
+}
+
+.sidebar-menu-btn-sm {
+    background: none;
+    border: none;
+    color: var(--sidebar-text);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition:
+        background 0.2s,
+        color 0.2s;
+}
+.sidebar-menu-btn-sm:hover {
+    background: var(--sidebar-bg-hover);
+    color: var(--sidebar-text-bright);
+}
+
+/* ── Section labels ── */
+.sidebar-section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sidebar-section);
+    padding: 18px 20px 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition:
+        opacity var(--transition-sidebar),
+        padding var(--transition-sidebar);
+}
+.sidebar-section-label.mt-auto {
+    margin-top: auto !important;
+}
+
+/* ── Nav list ── */
+.sidebar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 2px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition:
+        background 0.18s,
+        color 0.18s;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+.sidebar-link:hover {
+    background: var(--sidebar-bg-hover);
+    color: var(--sidebar-text-bright);
+}
+
+.sidebar-link.is-active {
+    background: var(--sidebar-active-bg);
+    color: var(--sidebar-text-bright);
+}
+.sidebar-link.is-active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: var(--sidebar-active-bar);
+}
+
+.sidebar-link--danger {
+    color: rgba(255, 100, 100, 0.75);
+}
+.sidebar-link--danger:hover {
+    background: rgba(220, 53, 69, 0.12);
+    color: #ff6b6b;
+}
+
+.sidebar-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+.sidebar-link:hover .sidebar-icon {
+    transform: scale(1.12);
+}
+
+.sidebar-label {
+    transition:
+        opacity var(--transition-sidebar),
+        width var(--transition-sidebar);
+    opacity: 1;
+}
+
+.portal-sidebar.is-collapsed .sidebar-link {
+    justify-content: center;
+    padding: 10px;
+}
+.portal-sidebar.is-collapsed .sidebar-link:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ── User card ── */
+.sidebar-user-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    margin: 8px 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--sidebar-border);
+    overflow: hidden;
+}
+.portal-sidebar.is-collapsed .sidebar-user-card {
+    justify-content: center;
+    padding: 10px 6px;
+}
+
+.sidebar-user-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--sidebar-active-bar);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.03em;
+}
+/* Avatar image variant — removed (avatars feature dropped) */
+
+.sidebar-user-info {
+    overflow: hidden;
+}
+.sidebar-user-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--sidebar-text-bright);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebar-user-role {
+    font-size: 0.7rem;
+    color: var(--sidebar-section);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTENT AREA
+   ═══════════════════════════════════════════════════════════════ */
+.portal-content-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* ── Top bar ── */
+.portal-topbar {
+    height: var(--topbar-height);
+    min-height: var(--topbar-height);
+    background: #ffffff;
+    border-bottom: 1px solid #e5e9f0;
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 16px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+    z-index: 50;
+}
+.portal-topbar-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1d2b45;
+    flex: 1;
+}
+.portal-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topbar-user-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #4a5568;
+    background: #f4f6fb;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    padding: 5px 14px 5px 6px;
+}
+.topbar-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--sidebar-active-bar);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.02em;
+}
+/* Avatar image variant — removed (avatars feature dropped) */
+
+/* ── Stage ── */
+.portal-stage {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    background: var(--content-bg);
+}
+
+/* ── Page container ── */
+.portal-page {
+    padding: 28px 32px;
+    min-height: calc(100vh - var(--topbar-height) - 46px);
+}
+
+/* ── SPA transitions — vertical slide ── */
+@keyframes pageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(48px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes pageSlideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-48px);
+    }
+}
+
+.portal-page.is-current {
+    animation: pageSlideIn var(--transition-page) both;
+}
+.portal-page.is-exiting {
+    animation: pageSlideOut var(--transition-page) both;
+    pointer-events: none;
+}
+
+/* Loading bar */
+.portal-stage {
+    position: relative;
+}
+.portal-stage.is-loading::after {
+    content: '';
+    display: block;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--sidebar-active-bar) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: loadingBar 1s linear infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 49;
+}
+@keyframes loadingBar {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ── Footer ── */
+.portal-footer {
+    height: 46px;
+    min-height: 46px;
+    background: #ffffff;
+    border-top: 1px solid #e5e9f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    color: #9aa5b4;
+}
+
+/* ── Cards ── */
+.card {
+    border-radius: var(--card-radius);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cdd5df;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NAV TIMELINE — vertical dot-rail pinned to RIGHT edge of sidebar
+   ═══════════════════════════════════════════════════════════════ */
+
+/* The timeline wrapper holds nav rows (dot + link) */
+.sidebar-nav-timeline {
+    display: block;
+    padding: 2px 6px 2px 8px;
+}
+
+.sidebar-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sidebar-nav-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 42px;
+}
+
+/* Rail cell: white dot + dashed connector via ::before/::after */
+.nav-rail-cell {
+    position: relative;
+    width: 14px;
+    flex-shrink: 0;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-rail-cell::before,
+.nav-rail-cell::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 0;
+    border-left: 2px dashed rgba(255, 255, 255, 0.4);
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.nav-rail-cell::before {
+    top: 0;
+    bottom: 50%;
+}
+
+.nav-rail-cell::after {
+    top: 50%;
+    bottom: 0;
+}
+
+.sidebar-nav-row.is-first .nav-rail-cell::before {
+    display: none;
+}
+
+.sidebar-nav-row.is-last .nav-rail-cell::after {
+    display: none;
+}
+
+.nav-rail-dot {
+    position: relative;
+    z-index: 1;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.65);
+    flex-shrink: 0;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+    transition:
+        width 0.2s ease,
+        height 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.nav-rail-dot.is-active {
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* Nav link next to rail */
+.sidebar-nav-list .sidebar-link {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.95rem;
+    transition:
+        background 0.18s,
+        color 0.18s,
+        font-size 0.2s;
+}
+
+.sidebar-nav-list .sidebar-link.is-active {
+    font-size: 1.045rem;
+}
+
+/* Collapsed: keep rail + icon (do not center-only — leave room for dots) */
+.portal-sidebar.is-collapsed .sidebar-nav-timeline {
+    padding: 2px 4px;
+}
+
+.portal-sidebar.is-collapsed .sidebar-nav-row {
+    gap: 4px;
+    justify-content: flex-start;
+}
+
+.portal-sidebar.is-collapsed .sidebar-nav-list .sidebar-link {
+    justify-content: center;
+    padding: 11px 4px;
+    flex: 1;
+}
+
+/* Right sidebar: rail on the outer (right) side of the label */
+.portal-layout.sidebar-right .sidebar-nav-row {
+    flex-direction: row-reverse;
+}
+
+.portal-layout.sidebar-right .sidebar-nav-timeline {
+    padding: 2px 8px 2px 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SETTINGS — Appearance cards
+   ═══════════════════════════════════════════════════════════════════ */
+/* Appearance picker cards (sidebar side + theme) */
+.appearance-card {
+    flex: 0 0 110px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 10px 8px;
+    cursor: pointer;
+    text-align: center;
+    transition:
+        border-color 0.18s,
+        box-shadow 0.18s;
+    background: #f8fafc;
+    user-select: none;
+}
+.appearance-card:hover {
+    border-color: #4f8ef7;
+}
+.appearance-card.is-selected {
+    border-color: #1a56db;
+    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.18);
+    background: #eef4ff;
+}
+.appearance-preview {
+    width: 100%;
+    height: 54px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    border: 1px solid #d0daea;
+    overflow: hidden;
+    position: relative;
+}
+.appearance-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+}
+.appearance-card.is-selected .appearance-label {
+    color: #1a56db;
+}
+
+/* Sidebar-left preview: dark bar on left */
+.sidebar-left-preview {
+    background: #f1f5f9;
+}
+.sidebar-left-preview::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 22px;
+    background: #1a3a6b;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Sidebar-right preview: dark bar on right */
+.sidebar-right-preview {
+    background: #f1f5f9;
+}
+.sidebar-right-preview::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 22px;
+    background: #1a3a6b;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Theme: light preview */
+.theme-light-preview {
+    background: #f8fafc;
+}
+.theme-light-preview::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 10px;
+    background: #e2e8f0;
+}
+
+/* Theme: dark preview */
+.theme-dark-preview {
+    background: #0f1923;
+}
+.theme-dark-preview::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 10px;
+    background: #1a2535;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CUSTOM SELECT / DROPDOWN — portal-wide polished look
+   ═══════════════════════════════════════════════════════════════════ */
+.form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #fff;
+    border: 1px solid #d0d5dd;
+    border-radius: 10px;
+    padding: 0.45rem 2.25rem 0.45rem 0.85rem;
+    font-size: 0.9rem;
+    color: #1d2b45;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%234f8ef7' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 12px;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+    cursor: pointer;
+}
+.form-select:focus {
+    border-color: #4f8ef7;
+    box-shadow: 0 0 0 0.2rem rgba(79, 142, 247, 0.18);
+    outline: none;
+}
+.form-select:hover:not(:focus):not(:disabled) {
+    border-color: #98b8e8;
+}
+.form-select:disabled {
+    background-color: #f0f2f5;
+    color: #8899aa;
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+.form-select option {
+    padding: 0.4rem 0.6rem;
+}
+/* Small variant */
+.form-select-sm {
+    padding: 0.3rem 2rem 0.3rem 0.65rem;
+    font-size: 0.82rem;
+    border-radius: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   DARK THEME
+   ═══════════════════════════════════════════════════════════════════ */
+body.dark-theme {
+    background: #0f1923;
+    color: #c8d8e8;
+}
+body.dark-theme .portal-topbar {
+    background: #111e2e;
+    border-bottom-color: #1e3048;
+    color: #e2e8f0;
+}
+body.dark-theme .portal-topbar-title {
+    color: #f1f5f9;
+}
+body.dark-theme .portal-topbar .text-muted,
+body.dark-theme .portal-topbar small {
+    color: #7a95b0 !important;
+}
+body.dark-theme .topbar-user-badge {
+    color: #c8d8e8;
+}
+body.dark-theme .portal-stage {
+    background: #0f1923;
+}
+body.dark-theme .portal-footer {
+    background: #111e2e;
+    border-top-color: #1e3048;
+    color: #7a95b0;
+}
+
+/* Cards */
+body.dark-theme .card {
+    background: #15243a;
+    border-color: #1e3048 !important;
+    color: #c8d8e8;
+}
+body.dark-theme .card-header {
+    background: #15243a !important;
+    color: #e2e8f0;
+    border-bottom-color: #1e3048;
+}
+
+/* Forms — use background-color on selects so caret image is not wiped/tiled */
+body.dark-theme .form-control {
+    background-color: #1a2d42;
+    color: #e2e8f0;
+    border-color: #2d4260;
+}
+body.dark-theme .form-select {
+    background-color: #1a2d42;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%237db8ff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 12px;
+    color: #e2e8f0;
+    border-color: #2d4260;
+}
+body.dark-theme .form-select:disabled {
+    background-color: #152030;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235a7a9a' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 12px;
+    color: #5a7a9a;
+}
+body.dark-theme .form-select option {
+    background-color: #1a2d42;
+    color: #e2e8f0;
+}
+body.dark-theme .form-control:focus {
+    background-color: #1e3350;
+    color: #e2e8f0;
+    border-color: #4f8ef7;
+    box-shadow: 0 0 0 0.2rem rgba(79, 142, 247, 0.25);
+}
+body.dark-theme .form-select:focus {
+    background-color: #1e3350;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%237db8ff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 12px;
+    color: #e2e8f0;
+    border-color: #4f8ef7;
+    box-shadow: 0 0 0 0.2rem rgba(79, 142, 247, 0.25);
+}
+body.dark-theme .form-control.bg-light {
+    background-color: #1a2535 !important;
+    color: #94a3b8;
+}
+body.dark-theme .form-text,
+body.dark-theme .text-muted {
+    color: #7a95b0 !important;
+}
+body.dark-theme .form-label {
+    color: #c8d8e8;
+}
+
+/* Tabs */
+body.dark-theme .nav-tabs {
+    border-bottom-color: #1e3048;
+}
+body.dark-theme .nav-tabs .nav-link {
+    color: #7a95b0;
+}
+body.dark-theme .nav-tabs .nav-link:hover {
+    color: #c8d8e8;
+    border-color: #1e3048 #1e3048 transparent;
+}
+body.dark-theme .nav-tabs .nav-link.active {
+    color: #e2e8f0;
+    background: #15243a;
+    border-color: #2d4260 #2d4260 #15243a;
+}
+
+/* Tables */
+body.dark-theme .table {
+    --bs-table-bg: #15243a;
+    --bs-table-color: #c8d8e8;
+    --bs-table-border-color: #1e3048;
+    --bs-table-striped-bg: #1a2d42;
+    --bs-table-striped-color: #c8d8e8;
+    --bs-table-hover-bg: #1e3350;
+    --bs-table-hover-color: #e2e8f0;
+    color: #c8d8e8;
+    border-color: #1e3048;
+    background-color: #15243a;
+}
+body.dark-theme .table > :not(caption) > * > * {
+    background-color: var(--bs-table-bg);
+    color: var(--bs-table-color);
+    border-bottom-color: #1e3048;
+    box-shadow: none;
+}
+body.dark-theme .table-light,
+body.dark-theme .table-light > td,
+body.dark-theme .table-light > th,
+body.dark-theme thead.table-light th,
+body.dark-theme .table thead th {
+    background-color: #1a2d42 !important;
+    color: #e2e8f0 !important;
+    border-color: #1e3048 !important;
+}
+body.dark-theme .table-bordered > :not(caption) > * {
+    border-color: #1e3048;
+}
+body.dark-theme .table-striped > tbody > tr:nth-of-type(odd) > * {
+    --bs-table-bg-type: #1a2d42;
+    background-color: #1a2d42;
+    color: #c8d8e8;
+}
+
+/* List groups */
+body.dark-theme .list-group-item {
+    background-color: #15243a;
+    color: #c8d8e8;
+    border-color: #1e3048;
+}
+body.dark-theme .list-group-item-action:hover,
+body.dark-theme .list-group-item-action:focus {
+    background-color: #1a2d42;
+    color: #e2e8f0;
+}
+body.dark-theme .list-group-item.active {
+    background-color: #1a56db;
+    border-color: #1a56db;
+    color: #fff;
+}
+body.dark-theme .list-group-flush > .list-group-item {
+    border-color: #1e3048;
+}
+
+/* Bootstrap white / light utility overrides in dark mode */
+body.dark-theme .bg-white {
+    background-color: #15243a !important;
+}
+body.dark-theme .bg-light {
+    background-color: #1a2d42 !important;
+}
+body.dark-theme .text-dark {
+    color: #e2e8f0 !important;
+}
+body.dark-theme .border,
+body.dark-theme .border-top,
+body.dark-theme .border-bottom,
+body.dark-theme .border-start,
+body.dark-theme .border-end {
+    border-color: #1e3048 !important;
+}
+body.dark-theme .modal-content {
+    background-color: #15243a;
+    color: #c8d8e8;
+    border-color: #1e3048;
+}
+body.dark-theme .modal-header,
+body.dark-theme .modal-footer {
+    border-color: #1e3048;
+}
+body.dark-theme .modal-title {
+    color: #e2e8f0;
+}
+body.dark-theme .btn-close {
+    filter: invert(1) grayscale(100%);
+    opacity: 0.7;
+}
+
+/* Alerts */
+body.dark-theme .alert-success {
+    background: #0d2e1a;
+    border-color: #1a4a2a;
+    color: #6ee7a0;
+}
+body.dark-theme .alert-danger {
+    background: #2e0d0d;
+    border-color: #4a1a1a;
+    color: #f87171;
+}
+
+/* Appearance cards in dark mode */
+body.dark-theme .appearance-card {
+    background: #1a2d42;
+    border-color: #2d4260;
+}
+body.dark-theme .appearance-card:hover {
+    border-color: #4f8ef7;
+}
+body.dark-theme .appearance-card.is-selected {
+    background: #1a2d52;
+    border-color: #4f8ef7;
+    box-shadow: 0 0 0 3px rgba(79, 142, 247, 0.22);
+}
+body.dark-theme .appearance-label {
+    color: #94a3b8;
+}
+body.dark-theme .appearance-card.is-selected .appearance-label {
+    color: #7db8ff;
+}
+
+/* Buttons */
+body.dark-theme .btn-outline-secondary {
+    color: #94a3b8;
+    border-color: #2d4260;
+}
+body.dark-theme .btn-outline-secondary:hover {
+    background: #1e3350;
+    color: #c8d8e8;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SIDEBAR RIGHT LAYOUT
+   ═══════════════════════════════════════════════════════════════════ */
+.portal-layout.sidebar-right {
+    flex-direction: row-reverse;
+}
+/* Flip the drop-shadow for right sidebar */
+.portal-layout.sidebar-right .portal-sidebar {
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.35);
+}
+/* Nav-rail moves to left side of sidebar when sidebar is on the right */
+.portal-layout.sidebar-right #navRail {
+    right: auto;
+    /* JS will recalculate position; this ensures the element isn't anchored right */
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FLATPICKR — Bootstrap-matching rounded style
+   ═══════════════════════════════════════════════════════════════════ */
+.flatpickr-calendar {
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14) !important;
+    border: 1px solid #dee2e6 !important;
+    font-family: inherit !important;
+    overflow: hidden;
+}
+.flatpickr-calendar.arrowTop::before,
+.flatpickr-calendar.arrowTop::after {
+    border-bottom-color: #dee2e6 !important;
+}
+.flatpickr-months {
+    background: #f8f9ff !important;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 4px 0 !important;
+}
+.flatpickr-month {
+    color: #1d2b45 !important;
+    fill: #1d2b45 !important;
+}
+.flatpickr-prev-month,
+.flatpickr-next-month {
+    color: #4f8ef7 !important;
+    fill: #4f8ef7 !important;
+}
+.flatpickr-prev-month:hover,
+.flatpickr-next-month:hover {
+    color: #2563eb !important;
+    fill: #2563eb !important;
+}
+.flatpickr-day {
+    border-radius: 8px !important;
+}
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover {
+    background: #4f8ef7 !important;
+    border-color: #4f8ef7 !important;
+}
+.flatpickr-day:hover {
+    background: #e8f0fe !important;
+}
+.flatpickr-day.today {
+    border-color: #4f8ef7 !important;
+}
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.flatpickr-disabled:hover {
+    color: #adb5bd !important;
+}
+/* The visible alt-input generated by flatpickr — keep Bootstrap look */
+.flatpickr-input.form-control[readonly] {
+    background-color: #fff !important;
+    cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BOOTSTRAP MODALS — ensure backdrop renders behind modal dialog
+   even when the trigger is inside a scrolling stacking context
+   ═══════════════════════════════════════════════════════════════════ */
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+.modal {
+    z-index: 1050 !important;
+}
+/* portal-stage uses overflow-y:auto. Bootstrap appends modals to <body>
+   by default, so backdrop + dialog are siblings to .portal-layout, not
+   children of .portal-stage. The explicit z-index overrides above are
+   sufficient to keep the backdrop behind the dialog. */

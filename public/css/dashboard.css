@@ -1,0 +1,239 @@
+/* ================================================================
+ *  Dashboard — widget styles + dark-theme overrides
+ *  Loaded only on the dashboard page via <link> in dashboard-page.php
+ * ================================================================ */
+
+/* ── Welcome Banner ────────────────────────────────────── */
+.dash-welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.dash-welcome h4 {
+    font-weight: 700;
+}
+
+/* ── Stat Cards ────────────────────────────────────────── */
+.dash-stat-card {
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+.dash-stat-link:hover .dash-stat-card {
+    transform: translateY(-3px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12) !important;
+}
+.dash-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+.dash-stat-icon--clientid {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+.dash-stat-icon--email {
+    background: #e8f4fd;
+    color: #0d6efd;
+}
+.dash-stat-icon--payment {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+.dash-stat-icon--office {
+    background: #fce7f3;
+    color: #9d174d;
+}
+
+.dash-stat-label {
+    font-size: 0.78rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+.dash-stat-value {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #212529;
+    line-height: 1.2;
+}
+.dash-stat-sub {
+    font-size: 0.75rem;
+    margin-top: 2px;
+}
+
+/* ── Card Headers ──────────────────────────────────────── */
+.dash-card-header {
+    background: transparent;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.75rem 1rem;
+}
+
+/* ── Service Row ───────────────────────────────────────── */
+.dash-service-row {
+    border: none;
+    padding: 0.75rem 1rem;
+    transition: background 0.12s;
+}
+.dash-service-row:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+.dash-svc-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* ── Email List ────────────────────────────────────────── */
+.dash-email-row {
+    padding: 0.65rem 1rem;
+    border: none;
+    transition: background 0.12s;
+}
+.dash-email-row:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+.dash-email--unread {
+    background: rgba(13, 110, 253, 0.04);
+}
+.dash-unread-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #0d6efd;
+    flex-shrink: 0;
+}
+.dash-svc-badge {
+    font-size: 0.68rem;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* ── CIF Progress Bar ─────────────────────────────────── */
+.dash-progress {
+    height: 8px;
+    border-radius: 4px;
+}
+
+/* ── Alert inside card ─────────────────────────────────── */
+.dash-alert {
+    font-size: 0.82rem;
+    border-radius: 6px;
+}
+
+/* ================================================================
+ *  DARK THEME
+ * ================================================================ */
+body.dark-theme .dash-welcome h4 {
+    color: #e8e8e8;
+}
+body.dark-theme .dash-welcome .text-muted {
+    color: #9ca3af !important;
+}
+
+/* Stat cards */
+body.dark-theme .dash-stat-card {
+    background: #1e293b;
+    border-color: #334155 !important;
+}
+body.dark-theme .dash-stat-link:hover .dash-stat-card {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3) !important;
+}
+body.dark-theme .dash-stat-value {
+    color: #e8e8e8;
+}
+body.dark-theme .dash-stat-label {
+    color: #9ca3af;
+}
+body.dark-theme .dash-stat-icon--clientid {
+    background: #2e1065;
+    color: #a78bfa;
+}
+body.dark-theme .dash-stat-icon--email {
+    background: #1e3a5f;
+    color: #60a5fa;
+}
+body.dark-theme .dash-stat-icon--payment {
+    background: #1a3a2a;
+    color: #34d399;
+}
+body.dark-theme .dash-stat-icon--office {
+    background: #4a1942;
+    color: #f472b6;
+}
+
+/* Cards */
+body.dark-theme .card {
+    background: #1e293b;
+    border-color: #334155 !important;
+}
+body.dark-theme .dash-card-header {
+    border-bottom-color: #334155;
+    color: #e8e8e8;
+}
+body.dark-theme .card-body {
+    color: #cbd5e1;
+}
+
+/* Service rows */
+body.dark-theme .dash-service-row {
+    border-color: #334155 !important;
+}
+body.dark-theme .dash-service-row:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+body.dark-theme .dash-service-row .fw-semibold {
+    color: #e8e8e8;
+}
+
+/* Email rows */
+body.dark-theme .dash-email-row:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+body.dark-theme .dash-email--unread {
+    background: rgba(96, 165, 250, 0.08);
+}
+body.dark-theme .dash-email-row .fw-semibold {
+    color: #e2e8f0;
+}
+
+/* List group flush borders */
+body.dark-theme .list-group-flush .list-group-item {
+    border-bottom-color: #334155;
+}
+
+/* Progress bar track */
+body.dark-theme .dash-progress {
+    background: #334155;
+}
+
+/* Outline buttons */
+body.dark-theme .btn-outline-primary {
+    border-color: #3b82f6;
+    color: #60a5fa;
+}
+body.dark-theme .btn-outline-primary:hover {
+    background: rgba(59, 130, 246, 0.15);
+    color: #93bbfc;
+}
+
+/* Text colour overrides */
+body.dark-theme .text-muted {
+    color: #9ca3af !important;
+}

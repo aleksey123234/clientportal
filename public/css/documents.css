@@ -1,0 +1,220 @@
+/* ═══════════════════════════════════════════════════════════════
+   DOCUMENTS PAGE — service tab colours & layout helpers
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Service tab pills — use CSS custom-properties set inline ── */
+.doc-tab-pill {
+    --doc-tab-bg: #ddd;
+    --doc-tab-text: #333;
+    --doc-tab-text-inactive: #333; /* override per-service for dark text on transparent */
+    --doc-tab-border: #bbb;
+
+    background: transparent;
+    color: var(
+        --doc-tab-text-inactive
+    ); /* inactive: use the dark/readable colour */
+    border: 2px solid var(--doc-tab-border);
+    border-radius: 50rem;
+    font-weight: 600;
+    padding: 0.42rem 1.1rem;
+    transition:
+        background 0.2s,
+        color 0.2s,
+        box-shadow 0.2s;
+}
+
+.doc-tab-pill:hover,
+.doc-tab-pill:focus {
+    background: var(--doc-tab-bg);
+    color: var(--doc-tab-text);
+    opacity: 0.85;
+}
+
+.doc-tab-pill.active {
+    background: var(--doc-tab-bg) !important;
+    color: var(
+        --doc-tab-text
+    ) !important; /* active: use service colour (may be white) */
+    border-color: var(--doc-tab-border) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Section heading dot (before card header text) ──────────── */
+.doc-section-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid;
+    flex-shrink: 0;
+}
+
+/* ── Status banner ─────────────────────────────────────────── */
+.doc-status-banner {
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+}
+
+/* ── Upload button hover lift ──────────────────────────────── */
+.doc-upload-btn {
+    font-weight: 600;
+    border: 1.5px solid;
+    border-radius: 0.375rem;
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+}
+.doc-upload-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Delete button subtle ──────────────────────────────────── */
+.doc-delete-form .btn-outline-danger {
+    border-width: 1.5px;
+}
+
+/* ── Table tweaks ──────────────────────────────────────────── */
+.tab-pane .table th {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6c757d;
+    font-weight: 600;
+}
+
+/* ── Dark mode adjustments ─────────────────────────────────── */
+.dark-theme .doc-tab-pill {
+    opacity: 0.9;
+}
+.dark-theme .doc-tab-pill.active {
+    opacity: 1;
+}
+.dark-theme .doc-status-banner {
+    opacity: 0.92;
+}
+
+/* ── Force English text on file-input (override OS locale) ── */
+#docFileInput::file-selector-button {
+    content: 'Choose file';
+}
+
+/* ── Drop zone ─────────────────────────────────────────────── */
+.doc-drop-zone {
+    position: relative;
+    border: 2px dashed #c0c5cf;
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        border-color 0.2s,
+        background 0.2s;
+    background: #fafbfc;
+}
+.doc-drop-zone:hover,
+.doc-drop-zone.drag-over {
+    border-color: #4361ee;
+    background: #eef1ff;
+}
+.doc-drop-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+.doc-drop-content {
+    pointer-events: none;
+}
+.doc-drop-browse {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.doc-drop-preview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    pointer-events: auto;
+    position: relative;
+    z-index: 3;
+}
+.doc-drop-preview .btn {
+    pointer-events: auto;
+}
+
+/* ── Inline upload error ───────────────────────────────────── */
+.doc-upload-error {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #fff0f0;
+    border: 1px solid #f5c2c7;
+    border-radius: 6px;
+    color: #842029;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* ── Dark mode: drop zone ──────────────────────────────────── */
+[data-bs-theme='dark'] .doc-drop-zone {
+    background: #1e1e2f;
+    border-color: #444;
+}
+[data-bs-theme='dark'] .doc-drop-zone:hover,
+[data-bs-theme='dark'] .doc-drop-zone.drag-over {
+    border-color: #4361ee;
+    background: #252540;
+}
+[data-bs-theme='dark'] .doc-upload-error {
+    background: #2c1a1a;
+    border-color: #5c2d30;
+    color: #f0a0a8;
+}
+
+/* ── Inbox read/unread styling ─────────────────────────────── */
+.inbox-unread-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4361ee;
+    flex-shrink: 0;
+}
+
+.inbox-unread {
+    background: #f0f4ff;
+}
+
+.inbox-read {
+    background: transparent;
+}
+
+[data-bs-theme='dark'] .inbox-unread {
+    background: #1e2040;
+}
+
+[data-bs-theme='dark'] .inbox-read {
+    background: transparent;
+}
+
+/* Deep-link highlight from CIF granted-pardon link */
+@keyframes doc-slot-pulse {
+    0%,
+    100% {
+        background-color: transparent;
+    }
+    30%,
+    70% {
+        background-color: rgba(220, 53, 69, 0.18);
+    }
+}
+
+tr.doc-slot-highlight,
+.doc-slot-highlight {
+    animation: doc-slot-pulse 1.1s ease-in-out 3;
+    outline: 2px solid #dc3545;
+    outline-offset: -2px;
+}

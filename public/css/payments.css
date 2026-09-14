@@ -1,0 +1,447 @@
+/* ═══════════════════════════════════════════════════════════════
+   PAYMENTS — Kanban board & card styles
+   File: public/css/payments.css
+
+   Sections:
+     - Summary stat icons
+     - Column headers (Service Cost, Paid, Method, Info)
+     - Payment cards (paid, missed, upcoming, extra)
+     - Monthly bundle cards & service breakdown list
+     - Payment Method CRM-style fields
+     - CC change modal & warning
+     - Additional Info cards
+     - Dark mode overrides
+
+   Loaded by: src/views/payments/payments-page.php
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Summary stat icon circle ──────────────────────────────── */
+.pay-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ── Grand Total province label ────────────────────────────── */
+.pay-tax-province {
+    font-style: italic;
+    opacity: 0.85;
+}
+
+/* ── Column layout ─────────────────────────────────────────── */
+.pay-column {
+    background: #f8f9fa;
+    border-radius: 0.75rem;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pay-column-header {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-radius: 0.75rem 0.75rem 0 0;
+    color: #fff;
+}
+.pay-col-service {
+    background: #495057;
+}
+.pay-col-paid {
+    background: #198754;
+}
+.pay-col-pending {
+    background: #fd7e14;
+}
+.pay-col-method {
+    background: #6b2737;
+}
+.pay-col-extra {
+    background: #6f42c1;
+}
+.pay-col-info {
+    background: #3d6b8e;
+}
+
+.pay-column-body {
+    padding: 0.75rem;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+/* ── Cards ─────────────────────────────────────────────────── */
+.pay-card {
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.6rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+    border-left: 4px solid #dee2e6;
+}
+.pay-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+.pay-card:last-child {
+    margin-bottom: 0;
+}
+
+.pay-card-title {
+    font-weight: 600;
+    color: #333;
+}
+.pay-card-amount {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin: 0.25rem 0;
+}
+.pay-card-meta {
+    font-size: 0.78rem;
+    color: #6c757d;
+}
+.pay-card-meta i {
+    font-size: 0.72rem;
+}
+
+/* ── Missed card — red accent ──────────────────────────────── */
+.pay-card-missed {
+    border-left: 4px solid #dc3545 !important;
+    background: #fff5f5;
+}
+
+/* ── Overdue card — orange accent ──────────────────────────── */
+.pay-card-overdue {
+    border-left-color: #fd7e14 !important;
+    background: #fff8f0;
+}
+
+/* ── Extra card default ────────────────────────────────────── */
+.pay-card-extra {
+    border-left: 4px solid #6f42c1 !important;
+}
+
+/* ── Highlight animation for linked cards ──────────────────── */
+.pay-card-highlight {
+    animation: cardHighlight 1.5s ease;
+}
+@keyframes cardHighlight {
+    0% {
+        box-shadow: 0 0 0 0 rgba(253, 126, 20, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(253, 126, 20, 0.25);
+    }
+    100% {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+}
+
+/* ── Paid card ─────────────────────────────────────────────── */
+.pay-card-paid {
+    opacity: 0.88;
+}
+.pay-card-paid:hover {
+    opacity: 1;
+}
+
+/* ── Progress bar inside service cost card ──────────────────── */
+.pay-card .progress {
+    border-radius: 50rem;
+    background: #e9ecef;
+}
+
+/* ── Monthly bundle card ───────────────────────────────────── */
+.pay-card-month {
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: #495057;
+}
+
+/* ── Service breakdown list inside bundle cards ────────────── */
+.pay-svc-list {
+    margin: 0.4rem 0 0.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.pay-svc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 0 2px 8px;
+    font-size: 0.73rem;
+    color: #555;
+}
+.pay-svc-name {
+    font-weight: 500;
+}
+.pay-svc-amount {
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+}
+
+/* ── Dark mode ─────────────────────────────────────────────── */
+.dark-theme .pay-column {
+    background: #2d2d30;
+}
+.dark-theme .pay-card {
+    background: #3c3c40;
+    color: #e0e0e0;
+}
+.dark-theme .pay-card-title {
+    color: #e0e0e0;
+}
+.dark-theme .pay-card-amount {
+    color: #f0f0f0;
+}
+.dark-theme .pay-card-missed {
+    background: #3d2020;
+}
+.dark-theme .pay-card-month {
+    color: #ccc;
+}
+.dark-theme .pay-svc-item {
+    color: #bbb;
+}
+.dark-theme .pay-svc-amount {
+    color: #e0e0e0;
+}
+
+/* ── Missed Payments summary row ───────────────────────────── */
+.pay-missed-row {
+    border-left: 4px solid #dc3545;
+}
+
+/* ── Missed formula inline (single-line display) ───────────── */
+.pay-missed-formula-inline {
+    font-size: 0.78rem;
+    color: #6c757d;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: nowrap;
+}
+
+/* ── Payment method badge ───────────────────────────────────── */
+.pay-method-badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    background: #f0f4ff;
+    border: 1px solid #c0d0f0;
+    border-radius: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #2a4a8a;
+    margin-bottom: 0.25rem;
+}
+
+/* ── Payment Method CRM-style fields ───────────────────────── */
+.pay-method-field {
+    margin-bottom: 0.65rem;
+}
+.pay-method-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.2rem;
+}
+.pay-method-label .text-danger {
+    font-size: 0.7rem;
+}
+.pay-old-cards-list {
+    padding: 0.35rem 0;
+}
+.pay-old-card-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+}
+
+/* ── Method info card ───────────────────────────────────────── */
+.pay-card-method-info {
+    border-left: 4px solid #6b2737 !important;
+    background: #fdf6f8;
+}
+
+/* ── Change CC card ─────────────────────────────────────────── */
+.pay-card-change-cc {
+    border-left: 4px solid #6b2737 !important;
+    background: #fdf6f8;
+}
+
+/* ── CC warning alert ───────────────────────────────────────── */
+.pay-cc-warning {
+    padding: 0.5rem 0.75rem;
+    background: #fde8e8;
+    border: 1px solid #f5c6cb;
+    border-radius: 0.35rem;
+    color: #721c24;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+/* ── Change CC button ───────────────────────────────────────── */
+.pay-btn-change-cc {
+    background: #6b2737;
+    border-color: #6b2737;
+    color: #fff;
+}
+.pay-btn-change-cc:hover {
+    background: #4f1c28;
+    border-color: #4f1c28;
+    color: #fff;
+}
+
+/* ── Pay Now button ─────────────────────────────────────────── */
+.btn-pay-now {
+    background: linear-gradient(135deg, #1a6f3d 0%, #21a156 100%);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition:
+        background 0.2s,
+        transform 0.1s,
+        box-shadow 0.2s;
+}
+.btn-pay-now:hover {
+    background: linear-gradient(135deg, #155a32 0%, #1a8647 100%);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(26, 111, 61, 0.35);
+    transform: translateY(-1px);
+}
+.btn-pay-now:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+.btn-pay-now:disabled {
+    background: #6c757d;
+    border-color: transparent;
+    opacity: 0.7;
+}
+
+/* Pay Now button on missed card — slightly more prominent */
+.pay-card-missed .btn-pay-now {
+    background: linear-gradient(135deg, #b02a37 0%, #dc3545 100%);
+}
+.pay-card-missed .btn-pay-now:hover {
+    background: linear-gradient(135deg, #8a1f2a 0%, #b02a37 100%);
+    box-shadow: 0 3px 10px rgba(176, 42, 55, 0.35);
+}
+
+/* ── Additional Info card items ─────────────────────────────── */
+.pay-card-info-item {
+    border-left: 4px solid #3d6b8e !important;
+    background: #f6fafd;
+}
+
+/* ── Dark mode additions ─────────────────────────────────────── */
+.dark-theme .pay-card-method-info,
+.dark-theme .pay-card-change-cc {
+    background: #3a2028;
+}
+.dark-theme .pay-method-badge {
+    background: #2a2a3d;
+    border-color: #4a4a6a;
+    color: #aac0f0;
+}
+.dark-theme .pay-cc-warning {
+    background: #4a1e1e;
+    border-color: #dc3545;
+    color: #f0b0b0;
+}
+.dark-theme .pay-card-info-item {
+    background: #1e2f3d;
+}
+.dark-theme .pay-missed-row {
+    background: #2d1a1a;
+}
+.dark-theme .pay-method-label {
+    color: #bbb;
+}
+.dark-theme .pay-missed-formula-inline {
+    color: #999;
+}
+/* ── Modal dark mode ─────────────────────────────────────────── */
+.dark-theme .modal-content {
+    background: #2d2d30;
+    color: #e0e0e0;
+}
+.dark-theme .modal-header.pay-col-method {
+    background: #4f1c28;
+}
+.dark-theme .modal-footer {
+    border-color: #444;
+}
+.dark-theme #changeCcForm .form-control {
+    background: #3c3c40;
+    border-color: #555;
+    color: #e0e0e0;
+}
+.dark-theme #changeCcForm .form-label {
+    color: #ccc;
+}
+.dark-theme #changeCcForm .form-text {
+    color: #999;
+}
+
+/* ── Moneris modal dark mode ─────────────────────────────────── */
+.dark-theme #monerisPayModal .modal-content {
+    background: #2d2d30;
+    color: #e0e0e0;
+}
+.dark-theme #monerisPayForm .form-control {
+    background: #3c3c40;
+    border-color: #555;
+    color: #e0e0e0;
+}
+.dark-theme #monerisPayForm .form-label {
+    color: #ccc;
+}
+.dark-theme #monerisPaySummary {
+    background: #3a3a3e;
+    border-color: #555;
+    color: #ccc;
+}
+
+/* ── Flatpickr month-only picker inside Moneris modal ────────
+   When monthSelectPlugin is absent, hide the day grid so the
+   calendar only shows month/year navigation.                   */
+#monerisPayModal .flatpickr-calendar .flatpickr-days,
+#monerisPayModal .flatpickr-calendar .dayContainer {
+    display: none !important;
+}
+#monerisPayModal .flatpickr-calendar {
+    width: auto !important;
+}
+.dark-theme #monerisPayModal .flatpickr-calendar {
+    background: #3c3c40;
+    border-color: #555;
+    color: #e0e0e0;
+}
+.dark-theme #monerisPayModal .flatpickr-months .flatpickr-month,
+.dark-theme #monerisPayModal .flatpickr-current-month input.cur-year,
+.dark-theme #monerisPayModal span.flatpickr-weekday,
+.dark-theme #monerisPayModal .flatpickr-day {
+    color: #e0e0e0 !important;
+    fill: #e0e0e0 !important;
+}
+.dark-theme #monerisPayModal .flatpickr-day.selected {
+    background: #0d6efd;
+    border-color: #0d6efd;
+}

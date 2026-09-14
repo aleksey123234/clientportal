@@ -1,0 +1,21 @@
+# public/.htaccess — front-controller: all requests -> index.php
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Skip real files (css, js, images)
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Everything else -> index.php
+    RewriteRule ^ index.php [L,QSA]
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Hide .env if it ends up in public
+<Files ".env">
+    Require all denied
+</Files>
