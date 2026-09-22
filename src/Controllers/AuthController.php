@@ -67,7 +67,7 @@ class AuthController extends BaseController
                         $error = 'Please fill in all fields.';
                     } else {
                         $stmt = $this->db()->prepare(
-                            'SELECT id, client_id, email, password_hash, first_name, last_name
+                            'SELECT id, client_id, email, password_hash, first_name, last_name, role
                              FROM users WHERE client_id = ? AND status = 1 LIMIT 1'
                         );
                         $stmt->execute([$clientId]);
@@ -81,7 +81,7 @@ class AuthController extends BaseController
                                 $this->setRememberCookie($user['id']);
                             }
 
-                            header('Location: /dashboard');
+                            header('Location: ' . (($user['role'] ?? 'client') === 'admin' ? '/admin' : '/dashboard'));
                             exit;
                         } else {
                             $error = 'Invalid Client ID or password.';
@@ -140,6 +140,7 @@ class AuthController extends BaseController
         $_SESSION['client_id']     = $user['client_id'] ?? '';
         $_SESSION['user_name']     = trim($user['first_name'] . ' ' . $user['last_name']) ?: $user['email'];
         $_SESSION['user_email']    = $user['email'];
+        $_SESSION['user_role']     = $user['role'] ?? 'client';
 
         /* Load view prefs */
         $stmt = $this->db()->prepare(
@@ -177,7 +178,7 @@ class AuthController extends BaseController
         if (empty($_COOKIE['remember_token'])) return;
         try {
             $stmt = $this->db()->prepare(
-                'SELECT id, client_id, email, password_hash, first_name, last_name
+                'SELECT id, client_id, email, password_hash, first_name, last_name, role
                  FROM users WHERE remember_token = ? AND status = 1 LIMIT 1'
             );
             $stmt->execute([hash('sha256', (string) $_COOKIE['remember_token'])]);
@@ -186,7 +187,7 @@ class AuthController extends BaseController
                 $this->startUserSession($user);
                 /* Rotate token */
                 $this->setRememberCookie($user['id']);
-                header('Location: /dashboard');
+                header('Location: ' . (($user['role'] ?? 'client') === 'admin' ? '/admin' : '/dashboard'));
                 exit;
             }
         } catch (\Exception $e) {
