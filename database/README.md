@@ -2,6 +2,22 @@
 
 Charset: `utf8mb4` / `utf8mb4_unicode_ci`. Database name from `.env` (`DB_DATABASE`, default `mysql_clients_portal`).
 
+## Reference directories
+
+Migrations `026` and `027` create the geographic model and seed Canadian
+provinces/territories plus US states and territories. Place the four private
+legacy exports in `database/reference-import/` using the filenames documented
+in `bin/import-reference-data.php`, then load them with:
+
+```bash
+php bin/import-reference-data.php
+```
+
+The source exports are intentionally gitignored because they include contact
+details and operational notes. The importer is idempotent. Pass `canada_court`, `usa_court`, `sbc`, or `lprc`
+to import only one directory. Placeholder phone numbers are discarded and the
+affected records are marked `needs_review`.
+
 ## Policy
 
 - **Forward-only.** No down migrations. Fix forward with a new numbered file if needed.

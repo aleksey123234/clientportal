@@ -12,6 +12,7 @@ use App\Controllers\HealthController;
 use App\Controllers\PasswordResetController;
 use App\Controllers\PaymentsController;
 use App\Controllers\ProfileController;
+use App\Controllers\ReferenceDataController;
 use App\Controllers\RegisterController;
 use App\Controllers\ServicesController;
 use App\Controllers\SettingsController;
@@ -40,4 +41,5 @@ return [
     'settings'           => [SettingsController::class, 'index', true],
     'admin'              => [AdminController::class, 'index', true, 'admin'],
     'admin/client'       => [AdminController::class, 'client', true, 'admin'],
+    'admin/reference-data' => [ReferenceDataController::class, 'index', true, 'admin'],
 ];

@@ -1,0 +1,20 @@
+INSERT INTO geographic_regions (country_code, code, name, region_type) VALUES
+('CA','AB','Alberta','province'),('CA','BC','British Columbia','province'),('CA','MB','Manitoba','province'),
+('CA','NB','New Brunswick','province'),('CA','NL','Newfoundland and Labrador','province'),('CA','NS','Nova Scotia','province'),
+('CA','NT','Northwest Territories','territory'),('CA','NU','Nunavut','territory'),('CA','ON','Ontario','province'),
+('CA','PE','Prince Edward Island','province'),('CA','QC','Quebec','province'),('CA','SK','Saskatchewan','province'),
+('CA','YT','Yukon','territory'),
+('US','AL','Alabama','state'),('US','AK','Alaska','state'),('US','AZ','Arizona','state'),('US','AR','Arkansas','state'),
+('US','CA','California','state'),('US','CO','Colorado','state'),('US','CT','Connecticut','state'),('US','DE','Delaware','state'),
+('US','DC','District of Columbia','district'),('US','FL','Florida','state'),('US','GA','Georgia','state'),('US','HI','Hawaii','state'),
+('US','ID','Idaho','state'),('US','IL','Illinois','state'),('US','IN','Indiana','state'),('US','IA','Iowa','state'),
+('US','KS','Kansas','state'),('US','KY','Kentucky','state'),('US','LA','Louisiana','state'),('US','ME','Maine','state'),
+('US','MD','Maryland','state'),('US','MA','Massachusetts','state'),('US','MI','Michigan','state'),('US','MN','Minnesota','state'),
+('US','MS','Mississippi','state'),('US','MO','Missouri','state'),('US','MT','Montana','state'),('US','NE','Nebraska','state'),
+('US','NV','Nevada','state'),('US','NH','New Hampshire','state'),('US','NJ','New Jersey','state'),('US','NM','New Mexico','state'),
+('US','NY','New York','state'),('US','NC','North Carolina','state'),('US','ND','North Dakota','state'),('US','OH','Ohio','state'),
+('US','OK','Oklahoma','state'),('US','OR','Oregon','state'),('US','PA','Pennsylvania','state'),('US','PR','Puerto Rico','commonwealth'),
+('US','RI','Rhode Island','state'),('US','SC','South Carolina','state'),('US','SD','South Dakota','state'),('US','TN','Tennessee','state'),
+('US','TX','Texas','state'),('US','UT','Utah','state'),('US','VT','Vermont','state'),('US','VA','Virginia','state'),
+('US','WA','Washington','state'),('US','WV','West Virginia','state'),('US','WI','Wisconsin','state'),('US','WY','Wyoming','state')
+ON DUPLICATE KEY UPDATE name = VALUES(name), region_type = VALUES(region_type), is_active = 1;
