@@ -84,6 +84,12 @@ function parseLocation(array $c, string $type, array $regions): ?array
     $fakePhone = $phone !== null && preg_match('/(?:000-000-0000|416-000-0000)/', $phone) === 1;
     $contact = plain($c[4] ?? '');
     $email = matchValue('/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/i', $contact . "\n" . plain($c[5] ?? ''));
+    $contactPhone = matchValue('/(?:\+?1[\s.\-]?)?\(?\d{3}\)?[\s.\-]\d{3}[\s.\-]\d{4}(?:\s*(?:x|ext\.?)[\s:]*\d+)?/i', $contact);
+    $contactLines = array_values(array_filter(array_map('trim', preg_split('/\R+/', $contact) ?: [])));
+    $contactName = $contactLines[0] ?? '';
+    if ($contactName === (string) $email || $contactName === (string) $contactPhone || strlen($contactName) > 120) {
+        $contactName = '';
+    }
     $covered = array_values(array_filter(array_map('cleanCity', preg_split('/\s*;\s*/', plain($c[1] ?? '')) ?: [])));
     $reviewReasons = [];
     if ($fakePhone) { $phone = null; $reviewReasons[] = 'Placeholder phone removed'; }
@@ -91,8 +97,9 @@ function parseLocation(array $c, string $type, array $regions): ?array
     return [
         'region_id' => (int) $region['id'], 'name' => cleanText($name), 'city' => cleanCity($city),
         'address' => cleanText($address), 'postal' => cleanText($postal), 'phone' => $phone, 'fax' => $fax,
-        'email' => $email, 'website' => extractUrl($c[0] ?? ''), 'contact_name' => cleanText(str_replace((string) $email, '', $contact)),
-        'fee_text' => cleanText(plain($c[2] ?? '')), 'additional' => cleanText(plain($c[5] ?? '')),
+        'email' => $email, 'website' => extractUrl($c[0] ?? ''), 'contact_name' => cleanText($contactName),
+        'contact_phone' => $contactPhone, 'contact_email' => $email,
+        'fee_text' => cleanText(plain($c[2] ?? '')), 'additional' => cleanText($contact . "\n" . plain($c[5] ?? '')),
         'instructions' => cleanText(plain($c[6] ?? '')), 'covered_cities' => $covered,
         'no_fee' => 0, 'needs_review' => $reviewReasons !== [], 'review_reason' => implode('; ', $reviewReasons),
         'method' => null, 'required_documents' => null, 'results_return_to' => null,
@@ -119,7 +126,7 @@ function parseSbc(array $c, array $regions): ?array
     return [
         'region_id' => (int) $state['id'], 'name' => cleanText($name ?: $state['name'] . ' State Authority'), 'city' => '',
         'address' => '', 'postal' => '', 'phone' => null, 'fax' => null, 'email' => null, 'website' => extractUrl($html),
-        'contact_name' => '', 'fee_text' => '', 'additional' => '', 'instructions' => '', 'covered_cities' => [],
+        'contact_name' => '', 'contact_phone' => null, 'contact_email' => null, 'fee_text' => '', 'additional' => '', 'instructions' => '', 'covered_cities' => [],
         'no_fee' => 0, 'needs_review' => $review, 'review_reason' => $review ? 'Incomplete or uncertain legacy SBC data' : '',
         'method' => $method, 'required_documents' => cleanText($required), 'results_return_to' => cleanText($results),
     ];
@@ -146,11 +153,11 @@ function saveLocation(PDO $pdo, array $r, string $type): int
 {
     $cityId = $r['city'] !== '' ? cityId($pdo, $r['region_id'], $r['city']) : null;
     $key = sha1(implode('|', [$r['region_id'], normalize($r['name']), normalize($r['address']), normalize($r['city'])]));
-    $sql = 'INSERT INTO reference_locations (directory_type,region_id,city_id,name,address_line,postal_code,phone,fax,email,website,contact_name,fee_text,additional_information,special_instructions,no_fee,needs_review,review_reason,source_key)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-            ON DUPLICATE KEY UPDATE region_id=VALUES(region_id),city_id=VALUES(city_id),name=VALUES(name),address_line=VALUES(address_line),postal_code=VALUES(postal_code),phone=VALUES(phone),fax=VALUES(fax),email=VALUES(email),website=VALUES(website),contact_name=VALUES(contact_name),fee_text=VALUES(fee_text),additional_information=VALUES(additional_information),special_instructions=VALUES(special_instructions),no_fee=VALUES(no_fee),needs_review=VALUES(needs_review),review_reason=VALUES(review_reason),updated_at=NOW(),id=LAST_INSERT_ID(id)';
+    $sql = 'INSERT INTO reference_locations (directory_type,region_id,city_id,name,address_line,postal_code,phone,fax,email,website,contact_name,contact_phone,contact_email,fee_text,additional_information,special_instructions,no_fee,needs_review,review_reason,source_key)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            ON DUPLICATE KEY UPDATE region_id=VALUES(region_id),city_id=VALUES(city_id),name=VALUES(name),address_line=VALUES(address_line),postal_code=VALUES(postal_code),phone=VALUES(phone),fax=VALUES(fax),email=VALUES(email),website=VALUES(website),contact_name=VALUES(contact_name),contact_phone=VALUES(contact_phone),contact_email=VALUES(contact_email),fee_text=VALUES(fee_text),additional_information=VALUES(additional_information),special_instructions=VALUES(special_instructions),no_fee=VALUES(no_fee),needs_review=VALUES(needs_review),review_reason=VALUES(review_reason),updated_at=NOW(),id=LAST_INSERT_ID(id)';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$type,$r['region_id'],$cityId,$r['name'],nullIfEmpty($r['address']),nullIfEmpty($r['postal']),$r['phone'],$r['fax'],$r['email'],$r['website'],nullIfEmpty($r['contact_name']),nullIfEmpty($r['fee_text']),nullIfEmpty($r['additional']),nullIfEmpty($r['instructions']),$r['no_fee'] ? 1 : 0,$r['needs_review'] ? 1 : 0,nullIfEmpty($r['review_reason']),$key]);
+    $stmt->execute([$type,$r['region_id'],$cityId,$r['name'],nullIfEmpty($r['address']),nullIfEmpty($r['postal']),$r['phone'],$r['fax'],$r['email'],$r['website'],nullIfEmpty($r['contact_name']),$r['contact_phone'] ?? null,$r['contact_email'] ?? null,nullIfEmpty($r['fee_text']),nullIfEmpty($r['additional']),nullIfEmpty($r['instructions']),$r['no_fee'] ? 1 : 0,$r['needs_review'] ? 1 : 0,nullIfEmpty($r['review_reason']),$key]);
     return (int) $pdo->lastInsertId();
 }
 
