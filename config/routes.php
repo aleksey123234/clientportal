@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Controllers\AdminController;
 use App\Controllers\AuthController;
 use App\Controllers\CifController;
 use App\Controllers\DashboardController;
@@ -11,12 +12,13 @@ use App\Controllers\HealthController;
 use App\Controllers\PasswordResetController;
 use App\Controllers\PaymentsController;
 use App\Controllers\ProfileController;
+use App\Controllers\ReferenceDataController;
 use App\Controllers\RegisterController;
 use App\Controllers\ServicesController;
 use App\Controllers\SettingsController;
 
 /**
- * Route map: path => [Controller::class, method, requiresAuth]
+ * Route map: path => [Controller::class, method, requiresAuth, requiredRole]
  *
  * Add a new portal page with one line here. Front controller: public/index.php
  */
@@ -37,4 +39,8 @@ return [
     'health'             => [HealthController::class, 'index', false],
     'profile'            => [ProfileController::class, 'index', true],
     'settings'           => [SettingsController::class, 'index', true],
+    'admin'              => [AdminController::class, 'index', true, 'admin'],
+    'admin/client'       => [AdminController::class, 'client', true, 'admin'],
+    'admin/reference-data' => [ReferenceDataController::class, 'index', true, 'admin'],
+    'admin/reference-data/edit' => [ReferenceDataController::class, 'edit', true, 'admin'],
 ];

@@ -3,6 +3,7 @@
 
 /vendor/
 .env
+database/reference-import/*.md
 /public/uploads/tmp/
 /database/dumps/
 *.sql.dump

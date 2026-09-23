@@ -56,7 +56,7 @@ if ($page === '' || $page === 'index.php') {
     $page = $_GET['page'] ?? 'login';
 }
 
-/** @var array<string, array{0: class-string, 1: string, 2: bool}> $routes */
+/** @var array<string, array{0: class-string, 1: string, 2: bool, 3?: string}> $routes */
 $routes = require __DIR__ . '/../config/routes.php';
 
 $isLoggedIn = !empty($_SESSION['user_id']);
@@ -68,13 +68,19 @@ if (!isset($routes[$page])) {
 }
 
 [$controllerClass, $method, $requiresAuth] = $routes[$page];
+$requiredRole = $routes[$page][3] ?? null;
 
 if ($requiresAuth && !$isLoggedIn) {
     header('Location: /login');
     exit;
 }
+if ($requiredRole !== null && (string) ($_SESSION['user_role'] ?? '') !== $requiredRole) {
+    http_response_code(403);
+    require __DIR__ . '/../src/views/layouts/403.php';
+    exit;
+}
 if ($isLoggedIn && $page === 'login') {
-    header('Location: /dashboard');
+    header('Location: ' . (($_SESSION['user_role'] ?? 'client') === 'admin' ? '/admin' : '/dashboard'));
     exit;
 }
 
