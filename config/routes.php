@@ -42,4 +42,5 @@ return [
     'admin'              => [AdminController::class, 'index', true, 'admin'],
     'admin/client'       => [AdminController::class, 'client', true, 'admin'],
     'admin/reference-data' => [ReferenceDataController::class, 'index', true, 'admin'],
+    'admin/reference-data/edit' => [ReferenceDataController::class, 'edit', true, 'admin'],
 ];

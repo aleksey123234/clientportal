@@ -40,7 +40,7 @@ $methodLabels = [
 <div class="result-meta"><strong><?= number_format($total) ?></strong> records found · Page <?= $page ?> of <?= $pages ?></div>
 <section class="panel reference-table">
 <table>
-<thead><tr><th>Name / address</th><th>Province / State</th><th>City</th><th>Covered cities</th><th>Contact</th><th>Fee / method</th><th>Status</th></tr></thead>
+<thead><tr><th>Name / address</th><th>Province / State</th><th>City</th><th>Covered cities</th><th>Contact</th><th>Fee / method</th><th>Status</th><th></th></tr></thead>
 <tbody>
 <?php foreach ($rows as $row): ?>
 <tr>
@@ -51,9 +51,10 @@ $methodLabels = [
     <td><?= $h($row['phone'] ?: $row['contact_phone'] ?: '—') ?><small><?= $h($row['email'] ?: $row['contact_email'] ?: '') ?></small></td>
     <td><?= $h($row['no_fee'] ? 'No fee' : ($row['fee_text'] ?: '—')) ?><small><?= $h($row['sbc_methods'] ?: $row['payment_type'] ?: '') ?></small></td>
     <td><span class="badge <?= $row['is_active'] ? '' : 'badge-muted' ?>"><?= $row['is_active'] ? 'Active' : 'Archived' ?></span><?php if ($row['needs_review']): ?><span class="badge badge-warning">Review</span><?php endif; ?></td>
+    <td><a class="edit-link" href="/admin/reference-data/edit?id=<?= (int) $row['id'] ?>">Edit</a></td>
 </tr>
 <?php endforeach; ?>
-<?php if (!$rows): ?><tr><td colspan="7" class="empty">No records match these filters.</td></tr><?php endif; ?>
+<?php if (!$rows): ?><tr><td colspan="8" class="empty">No records match these filters.</td></tr><?php endif; ?>
 </tbody>
 </table>
 </section>

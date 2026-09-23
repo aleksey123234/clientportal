@@ -6,6 +6,7 @@
     <title><?= htmlspecialchars($pageTitle ?? 'Administration') ?> — Client Portal</title>
     <link rel="stylesheet" href="/css/admin.css">
     <?php if (($activePage ?? '') === 'reference-data'): ?><link rel="stylesheet" href="/css/admin-reference-data.css"><?php endif; ?>
+    <?php if (($activePage ?? '') === 'reference-data'): ?><link rel="stylesheet" href="/css/admin-reference-edit.css"><?php endif; ?>
 </head>
 <body>
 <header class="admin-header">
